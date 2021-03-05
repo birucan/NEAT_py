@@ -2,7 +2,7 @@ from Gene import *
 from NodeGene import *
 from Constants import *
 
-class ConnectionGene():
+class ConnectionGene(Gene):
 
     origin = NodeGene(-1)
     target = NodeGene(-1)
@@ -30,7 +30,7 @@ class ConnectionGene():
         return self.weight
 
     def setWeight(self, nWeight):
-        self.origin = nWeight
+        self.weight = nWeight
 
     def isEnabled(self):
         return self.enabled
@@ -40,6 +40,12 @@ class ConnectionGene():
 
     def disable(self):
         self.enabled = False
+
+    def toggle(self):
+        if(self.isEnabled()):
+            self.disable()
+        else:
+            self.enable()
 
     def equals(self, obj):
         if(not isinstance(obj, NodeGene)):

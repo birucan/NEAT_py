@@ -5,6 +5,11 @@ class RandomSelector:
     scores= []
     objects= []
     totalScore = 0;
+    
+
+    def __init__(self):
+        self.scores=[]
+        self.objects=[]
 
     def add(self, element, score):
         self.scores.append(score)
