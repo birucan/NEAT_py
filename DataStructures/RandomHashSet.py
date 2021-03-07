@@ -10,7 +10,6 @@ class RandomHashSet:
 
 
     def contains(self, obj):
-        #TODO find better solution for stupid workaround
         if(obj.hashCode() in self.Dict):
             return True
         else:

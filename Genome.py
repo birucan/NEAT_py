@@ -179,7 +179,7 @@ class Genome:
 
         con1.setWeight(1)
         con2.setWeight(con.getWeight())
-        con2.enable()
+        con2.setEnabled(con.isEnabled())
 
         self.nodes.add(middle)
         self.connections.deleteObj(con)
