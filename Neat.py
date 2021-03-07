@@ -72,15 +72,14 @@ class Neat:
         nCon= ConnectionGene(node1, node2)
 
         if(len(self.allConections)==0):
-            print("added Connection to empty Connections")
             nCon.setInnovationNum(1)
             self.allConections[nCon.hashCode()] = nCon
             return nCon
         elif(self.allConections.get(nCon.hashCode())):
             print(str(nCon.getOrigin().getInnovationNum())+" to "+str(nCon.getTarget().getInnovationNum())+" is in connections")
             nCon.setInnovationNum(self.allConections.get(nCon.hashCode()).getInnovationNum())
+            return nCon
         else:
-            print("notInCon")
             nCon.setInnovationNum(len(self.allConections)+1)
             self.allConections[nCon.hashCode()] = nCon
 

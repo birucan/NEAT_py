@@ -142,8 +142,8 @@ class Genome:
             else:
                 con = ConnectionGene(nodeB,nodeA)
 
-            if(self.getConnections().contains(con.hashCode())):
-                print("llegue contains")
+
+            if(self.getConnections().contains(con)):
                 continue
 
 
@@ -151,8 +151,6 @@ class Genome:
 
             con.setWeight((random.random() * 2-1)*WEIGHT_RANDOM_STRENGTH)
             self.connections.addSorted(con)
-
-            print("tamano connections: "+str(self.connections.getSize()))
 
             break
 
@@ -162,16 +160,14 @@ class Genome:
 
 
         if(con== None):
-            print("noConnections")
             return
 
         origin = con.getOrigin()
         target = con.getTarget()
-
         middle = self.neat.getNode()
 
         signo = 1
-        if ( random.random()>=0.5):
+        if ( random.random()>0.5):
             signo=-1
 
         middle.setX((origin.getX()+target.getX())/2)
@@ -179,6 +175,7 @@ class Genome:
 
         con1 = self.neat.getConnection(origin, middle)
         con2 = self.neat.getConnection(middle, target)
+
 
         con1.setWeight(1)
         con2.setWeight(con.getWeight())
@@ -209,7 +206,6 @@ class Genome:
 
 
     def mutateWeightRandom(self):
-        print("fuck you")
         nCon = self.getConnections().getRandom()
 
         if(nCon != None):

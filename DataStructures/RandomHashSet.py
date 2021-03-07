@@ -10,8 +10,8 @@ class RandomHashSet:
 
 
     def contains(self, obj):
-        if(obj in self.Dict):
-            print("am i ever here?")
+        #TODO find better solution for stupid workaround
+        if(obj.hashCode() in self.Dict):
             return True
         else:
             return False
@@ -25,7 +25,7 @@ class RandomHashSet:
 
     def add(self, obj):
         if(not self.contains(obj)):
-            self.Dict[obj] = obj;
+            self.Dict[obj.hashCode()] = obj;
             self.List.append(obj);
             #print(self.Dict)
             return True
@@ -36,15 +36,18 @@ class RandomHashSet:
         if(index < 0 or index >= len(List)):
             return False;
         else:
-            del self.Dict[self.List[index]]
+            del self.Dict[self.List[index].hashCode()]
             self.List.remove(self.List[index])
             return True;
 
     def deleteObj(self, obj):
-        if(self.Dict.get(obj)):
-            del self.Dict[obj]
+        if(self.Dict.get(obj.hashCode())):
+
+            del self.Dict[obj.hashCode()]
+
+
             self.List.remove(obj)
-            print("deleted")
+
             return True;
         else:
             return False;
@@ -63,15 +66,12 @@ class RandomHashSet:
     def addSorted(self, obj):
         if(len(self.List)==0):
             self.List.append(obj)
-            self.Dict[obj]=obj
+            self.Dict[obj.hashCode()]=obj
         else:
             for a in range (0,len(self.List)):
                 innovation = self.List[a].getInnovationNum()
-                print("Innovation in List="+str(innovation))
-                print("object innovation = "+str(obj.getInnovationNum()))
 
                 if(obj.getInnovationNum()>innovation and not self.contains(obj)):
-                    print("addsorted working")
-                    self.Dict[obj] = obj
+                    self.Dict[obj.hashCode()] = obj
                     self.List.insert(a, obj)
                     return

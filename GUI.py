@@ -15,15 +15,19 @@ class GUI:
     locR=0
 
     nodeContainer={}
+    lineList={}
     selected=-1
+
 
     nodeInfo='no node selected'
     NodeData=''
 
 
 
-    def helloCallBack(self):
-        self.drawConnections(self.gen)
+    def helloCallBack(self, nGenome):
+        self.setGenome(nGenome)
+        self.eraseLines()
+        self.drawConnections(nGenome)
         self.drawNodes(self.gen, self.locR)
         self.Canvas.update_idletasks
 
@@ -33,10 +37,6 @@ class GUI:
 
 
     def __init__(self, nGenome, r):
-
-        print(nGenome.getConnections().getSize())
-
-        print(nGenome.getNodes().getSize())
 
         self.locR=r
 
@@ -57,8 +57,8 @@ class GUI:
         B4 = tk.Button(self.Canvas, text ="Node Mutate", command = lambda: self.gen.mutateNode())
         B5 = tk.Button(self.Canvas, text ="enable/diable", command = lambda: self.gen.mutateToggleLink())
         B6 = tk.Button(self.Canvas, text ="Mutate", command = lambda: self.gen.mutate())
-        B7 = tk.Button(self.Canvas, text ="Calculate", command = lambda: self.helloCallBack())
-        B8 = tk.Button(self.Canvas, text ="render", command = lambda: self.helloCallBack())
+        B7 = tk.Button(self.Canvas, text ="Calculate", command = lambda: self.helloCallBack(nGenome))
+        B8 = tk.Button(self.Canvas, text ="render", command = lambda: self.helloCallBack(nGenome))
 
         B1.place(x=10,y=self.canHeight+50)
         bWidth=B1.winfo_reqwidth()+10
@@ -89,18 +89,28 @@ class GUI:
 
     def selectNode(self, event):
         curId=event.widget.find_withtag('current')[0]
-        if(not self.selected == -1):
+        if(curId in self.lineList.keys()):
+            curId=event.widget.find_withtag('current')[0]
+            if(not self.selected == -1):
+                self.Canvas.itemconfig(self.selected, fill='#000000')
 
-            self.Canvas.itemconfig(self.selected, fill='#bfbfbf')
+            self.selected=curId
 
-        self.selected=curId
+            self.NodeData.config(text="Selected Innovation: "+str(self.lineList[curId].getInnovationNum())+" Weight: "+str(self.lineList[curId].getWeight())+" Enabled: "+str(self.lineList[curId].isEnabled()))
+            #self.NodeData.place(x=self.canWidth/2, y=self.canHeight+25)
+            self.Canvas.itemconfig(curId, fill='#00ff29')
+        else:
+            curId=event.widget.find_withtag('current')[0]
+            if(not self.selected == -1):
+
+                self.Canvas.itemconfig(self.selected, fill='#bfbfbf')
+
+            self.selected=curId
 
 
-
-        self.NodeData.config(text="Selected Innovation: "+str(self.nodeContainer[curId].getInnovationNum()))
-        #self.NodeData.place(x=self.canWidth/2, y=self.canHeight+25)
-        print("selected: ", str(self.nodeContainer[curId]))
-        self.Canvas.itemconfig(curId, fill='#ff0000')
+            self.NodeData.config(text="Selected Innovation: "+str(self.nodeContainer[curId].getInnovationNum()))
+            #self.NodeData.place(x=self.canWidth/2, y=self.canHeight+25)
+            self.Canvas.itemconfig(curId, fill='#ff0000')
 
     def drawNodes(self, gen, r):
 
@@ -115,7 +125,6 @@ class GUI:
             self.Canvas.tag_bind(circle,'<ButtonPress-1>', self.selectNode)
 
     def drawConnections(self, gen):
-
 
         for a in gen.getConnections().List:
 
@@ -133,6 +142,16 @@ class GUI:
 
                 #print("creating line from X0,Y0 To X1,Y1  "+str(oX)+","+str(oY)+" To "+str(tX)+","+str(tY))
                 if(a.isEnabled()):
-                    line= self.Canvas.create_line(oX,oY,tX,tY, fill="#000000")
+                    line= self.Canvas.create_line(oX,oY,tX,tY, fill="#000000",width=1)
+                    self.Canvas.tag_bind(line,'<ButtonPress-1>', self.selectNode)
+                    self.lineList[line]=a
                 else:
-                    line= self.Canvas.create_line(oX,oY,tX,tY, fill="#ff0000")
+                    line= self.Canvas.create_line(oX,oY,tX,tY, fill="#ff0000", width=1)
+                    self.Canvas.tag_bind(line,'<ButtonPress-1>', self.selectNode)
+                    self.lineList[line]=a
+
+    def eraseLines(self):
+        for a in self.lineList:
+            self.Canvas.delete(a)
+
+        self.lineList = {}

@@ -54,4 +54,11 @@ class ConnectionGene(Gene):
         return (self.origin==obj.getOrigin() & self.target==obj.getTarget())
 
     def hashCode(self):
-        return self.getOrigin().getInnovationNum() * MAX_NODES * self.getTarget().getInnovationNum()
+        hash =23
+        hash= hash *31 +self.getOrigin().getInnovationNum()
+        hash= hash *31 +self.getTarget().getInnovationNum()
+        hash= hash *31 +MAX_NODES
+
+        return hash
+
+        #return self.getOrigin().getInnovationNum() * MAX_NODES * self.getTarget().getInnovationNum()
