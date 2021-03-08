@@ -1,5 +1,6 @@
 import tkinter as tk
 from Genome import *
+from Calculator import *
 
 
 
@@ -22,9 +23,10 @@ class GUI:
     nodeInfo='no node selected'
     NodeData=''
 
-
+    list = [1,1,1]
 
     def helloCallBack(self, nGenome):
+        nGenome.generateCalculator();
         self.setGenome(nGenome)
         self.eraseLines()
         self.drawConnections(nGenome)
@@ -41,6 +43,8 @@ class GUI:
         self.locR=r
 
         self.nodeContainer={}
+
+        nGenome.generateCalculator()
         self.setGenome(nGenome)
         self.drawConnections(nGenome)
         self.drawNodes(nGenome, r)
@@ -51,13 +55,15 @@ class GUI:
         self.NodeData= tk.Label(self.Canvas,text="test")
 
 
+
+
         B1 = tk.Button(self.Canvas, text ="Random Weight", command = lambda: self.gen.mutateWeightRandom())
         B2 = tk.Button(self.Canvas, text ="Weight Shift", command = lambda: self.gen.mutateWeightShift())
         B3 = tk.Button(self.Canvas, text ="Link Mutate", command = lambda: self.gen.mutateLink())
         B4 = tk.Button(self.Canvas, text ="Node Mutate", command = lambda: self.gen.mutateNode())
         B5 = tk.Button(self.Canvas, text ="enable/diable", command = lambda: self.gen.mutateToggleLink())
         B6 = tk.Button(self.Canvas, text ="Mutate", command = lambda: self.gen.mutate())
-        B7 = tk.Button(self.Canvas, text ="Calculate", command = lambda: self.helloCallBack(nGenome))
+        B7 = tk.Button(self.Canvas, text ="Calculate", command = lambda: self.gen.calculate(self.list))
         B8 = tk.Button(self.Canvas, text ="render", command = lambda: self.helloCallBack(nGenome))
 
         B1.place(x=10,y=self.canHeight+50)

@@ -4,12 +4,17 @@ from NodeGene import *
 from Genome import *
 from DataStructures.RandomHashSet import *
 from GUI import *
-
+from Client import *
+from Species import *
 
 class Neat:
 
     allConections = {}
     allNodes = RandomHashSet()
+
+    clients =  RandomHashSet()
+    species =  RandomHashSet()
+
 
     inputSize =-1
     outputSize =-1
@@ -93,7 +98,7 @@ class Neat:
 
 
 def main():
-    nNeat = Neat(2,2,100)
+    nNeat = Neat(3,2,100)
 
 
     nGenome = nNeat.emptyGenome()

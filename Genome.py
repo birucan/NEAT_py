@@ -1,6 +1,7 @@
 from DataStructures.RandomHashSet import *
 from Constants import *
 from ConnectionGene import *
+from Calculator import *
 import random
 import math
 
@@ -9,6 +10,17 @@ class Genome:
     connections = RandomHashSet();
     nodes = RandomHashSet();
     neat = ''
+    calculator = ''
+
+    #TODO get rid of calculator in genome
+    def generateCalculator(self):
+        self.calculator = Calculator(self)
+
+    def calculate(self,foo):
+        if(self.calculator!=''):
+            return self.calculator.calculate(foo)
+        else:
+            return null
 
     def distance(self, g2):
         g1 = self
@@ -21,8 +33,18 @@ class Genome:
         weightDiff = 0
         similar = 0
 
-        lastInnovation1 = g1.getConnections().get(g1.getConnections.size-1).getInnovationNum()
-        lastInnovation1 = g2.getConnections().get(g2.getConnections.size-1).getInnovationNum()
+        lastInnovation1=0
+        lastInnovation2=0
+
+        if(g1.getConnections().getSize()!=0):
+            lastInnovation1 = g1.getConnections().get(g1.getConnections.size-1).getInnovationNum()
+        if(g2.getConnections().getSize()!=0):
+            lastInnovation2 = g2.getConnections().get(g2.getConnections.size-1).getInnovationNum()
+
+        if(lastInnovation1<lastInnovation2):
+            ge= g1
+            g1 = g2
+            g2 = ge
 
         while((iG1 < g1.getConnections().getSize()) and (iG2 < g2.getConnections().getSize())):
 

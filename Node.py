@@ -1,5 +1,10 @@
 import numpy as np
 
+
+from functools import total_ordering
+
+
+@total_ordering
 class Node:
     x=-1;
     output =-1;
@@ -11,10 +16,11 @@ class Node:
 
     def calculate(self):
         s=0
-        for a in connections:
+        for a in self.connections:
+            #print("a  "+str(a.getOrigin()))
             if(a.isEnabled()):
-                s += a.getOrigin().getWeight()*a.getTarget().getWeight()
-        self.output=activationFunction(s)
+                s += a.getWeight()*a.getTarget().getOutput()
+        self.output=self.activationFunction(s)
 
     def activationFunction(self, foo):
         return 1/(1+ np.exp(-foo))
@@ -46,7 +52,14 @@ class Node:
         if(this.x < obj.x): return 1
         else: return 0
 
+    #NVM im gonna try
+    def __eq__(self, obj):
+        return (self.x==obj.x)
 
 
-fo =Node(10)
-print(fo.activationFunction(10))
+    def __lt__(self, obj):
+        return (self.x< obj.x)
+
+
+    def __gt__(self, obj):
+        return (self.x > obj.x)
