@@ -72,11 +72,11 @@ class Genome:
                 iG1=iG1+1
                 disjoint=disjoint+1
 
-
-        weightDiff = weightDiff/similar
+        if(similar!=0):
+            weightDiff = weightDiff/similar
         excess = g1.getConnections().getSize() - iG1
 
-        N = max(g1.getConnections().size(), g2.getConnections().size())
+        N = max(g1.getConnections().getSize(), g2.getConnections().getSize())
 
         if(N<20):
             N=1
@@ -90,9 +90,9 @@ class Genome:
 
 
     def crossOver(self, g1, g2):
-        g1 = self
+        #g1 = self
 
-        childGenome =  g1.getNeat().EmptyGenome()
+        childGenome =  g1.neat.emptyGenome()
 
         #indexes
         iG1=0
@@ -110,7 +110,9 @@ class Genome:
             if(inn1==inn2):
 
                 choice =  random.choice((gene1,gene2))
-                childGenome.getConnections().add(g1.getNeat().getConnection(choice))
+                #TODO change back to single param and make single param def in neat.py
+                #childGenome.getConnections().add(g1.neat.getConnection(choice))
+                childGenome.getConnections().add(g1.neat.getConnection(choice.getOrigin(), choice.getTarget()))
 
                 iG1=iG1+1;
                 iG2=iG2+1;
@@ -120,14 +122,14 @@ class Genome:
 
             if(inn1<inn2):
                 iG1=iG1+1
-                childGenome.getConnections().add(g1.getNeat().getConnection(gene1))
+                childGenome.getConnections().add(g1.neat.getConnection(gene1.getOrigin(), gene1.getTarget()))
 
-        while(iG1< g1.getConnections.getSize()):
+        while(iG1< g1.getConnections().getSize()):
             gene1 = g1.getConnections().get(IG1)
-            childGenome.getConnections().add(g1.getNeat().getConnection(gene1))
+            childGenome.getConnections().add(g1.neat.getConnection(gene1.getOrigin(), gene1.getTarget()))
             iG1=iG1+1
 
-        for CG in childGenome.getConnections().getData():
+        for CG in childGenome.getConnections().List:
             childGenome.getNodes().add(CG.getOrigin())
             childGenome.getNodes().add(CG.getTarget())
 
@@ -135,7 +137,7 @@ class Genome:
 
 
 
-    #TODO mutate
+
     def mutate(self):
         if(PROBABILITY_MUTATE_LINK>random.random()):
             self.mutateLink()

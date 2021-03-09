@@ -32,7 +32,7 @@ class Calculator:
             elif(a.getX()>=0.9):
                 self.outputNodes.append(nNode)
             else:
-                print("added hiddenNode "+str(nNode.getX()))
+                #print("added hiddenNode "+str(nNode.getX()))
                 self.hiddenNodes.append(nNode)
 
 
@@ -69,5 +69,5 @@ class Calculator:
             self.outputNodes[c].calculate()
             output.append(self.outputNodes[c].getOutput())
 
-        print(output)
+        #print(output)
         return output

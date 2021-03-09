@@ -5,7 +5,7 @@ class RandomSelector:
     scores= []
     objects= []
     totalScore = 0;
-    
+
 
     def __init__(self):
         self.scores=[]
@@ -13,7 +13,7 @@ class RandomSelector:
 
     def add(self, element, score):
         self.scores.append(score)
-        self.objects.append(object)
+        self.objects.append(element)
         self.totalScore += score
 
 
@@ -21,10 +21,9 @@ class RandomSelector:
         v= random.random()*self.totalScore
 
         c= 0
-        for a in range(0, len(self.scores)):
+        for a in range(0, len(self.objects)):
             c += self.scores[a]
             if(c>v):
-                print(a)
                 return self.objects[a]
 
     def clear(self):
@@ -36,9 +35,9 @@ class RandomSelector:
 def tester():
     test = RandomSelector()
 
-    test.add('test', 2000)
+    test.add('test', 200000000)
     test.add('test2', 2000)
-    test.add('test3', 500)
+    test.add('test3', 5000)
 
     print(test.getRandom())
 

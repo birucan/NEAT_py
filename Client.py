@@ -1,6 +1,7 @@
 from Genome import *
 from Species import *
 from Calculator import *
+import random
 
 
 class Client:
@@ -9,6 +10,10 @@ class Client:
     score = 0
     species = None
     calculator = None
+    hashCode = None
+
+    def __init__(self):
+        return
 
     def generateCalculator(self):
         self.calculator = Calculator(self.genome)
@@ -48,7 +53,7 @@ class Client:
     def setSpecies(self, nSpecies):
         self.species= nSpecies
 
-    def getCalculator(self)
+    def getCalculator(self):
         return self.calculator
 
 
@@ -62,3 +67,11 @@ class Client:
 
     def __gt__(self, obj):
         return (self.score > obj.score)
+
+    def hashCode(self):
+        foo = self.hashCode
+        if(foo== None):
+            self.hashCode = self.score+random.random()*31
+            return self.hashCode
+        else:
+            return self.hashCode

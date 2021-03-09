@@ -32,7 +32,7 @@ class RandomHashSet:
             return False
 
     def delete(self, index):
-        if(index < 0 or index >= len(List)):
+        if(index < 0 or index >= len(self.List)):
             return False;
         else:
             del self.Dict[self.List[index].hashCode()]
