@@ -1,13 +1,13 @@
 from Gene import *
-from NodeGene import *
+from Node import *
 from Constants import *
 
-class ConnectionGene(Gene):
+class Connection(Node):
 
-    origin = NodeGene(-1)
-    target = NodeGene(-1)
+    origin = Node(-1)
+    target = Node(-1)
 
-    weight=-1
+    weight=-1;
     enabled = True
 
     def __init__(self, nOrigin, nTarget):
@@ -50,19 +50,3 @@ class ConnectionGene(Gene):
     def setEnabled(self, state):
         if(type(state) == bool):
             self.enabled = state
-
-    def equals(self, obj):
-        if(not isinstance(obj, NodeGene)):
-            return False
-
-        return (self.origin==obj.getOrigin() & self.target==obj.getTarget())
-
-    def hashCode(self):
-        hash =23
-        hash= hash *31 +self.getOrigin().getInnovationNum()
-        hash= hash *31 +self.getTarget().getInnovationNum()
-        hash= hash *31 +MAX_NODES
-
-        return hash
-
-        #return self.getOrigin().getInnovationNum() * MAX_NODES * self.getTarget().getInnovationNum()

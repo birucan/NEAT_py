@@ -1,7 +1,7 @@
 
 class Gene:
 
-    innovationNum=-1
+    innovationNum=-1;
 
     def __init__(self, pInnovationNum):
         self.innovationNum=pInnovationNum

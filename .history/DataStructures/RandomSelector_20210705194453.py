@@ -4,7 +4,7 @@ class RandomSelector:
 
     scores= []
     objects= []
-    totalScore = 0
+    totalScore = 0;
 
 
     def __init__(self):

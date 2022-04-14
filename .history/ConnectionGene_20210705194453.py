@@ -7,7 +7,7 @@ class ConnectionGene(Gene):
     origin = NodeGene(-1)
     target = NodeGene(-1)
 
-    weight=-1
+    weight=-1;
     enabled = True
 
     def __init__(self, nOrigin, nTarget):

@@ -24,8 +24,8 @@ class RandomHashSet:
 
     def add(self, obj):
         if(not self.contains(obj)):
-            self.Dict[obj.hashCode()] = obj
-            self.List.append(obj)
+            self.Dict[obj.hashCode()] = obj;
+            self.List.append(obj);
             #print(self.Dict)
             return True
         else:
@@ -33,11 +33,11 @@ class RandomHashSet:
 
     def delete(self, index):
         if(index < 0 or index >= len(self.List)):
-            return False
+            return False;
         else:
             del self.Dict[self.List[index].hashCode()]
             self.List.remove(self.List[index])
-            return True
+            return True;
 
     def deleteObj(self, obj):
         if(self.Dict.get(obj.hashCode())):
@@ -47,9 +47,9 @@ class RandomHashSet:
 
             self.List.remove(obj)
 
-            return True
+            return True;
         else:
-            return False
+            return False;
 
 
 

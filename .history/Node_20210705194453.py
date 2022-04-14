@@ -48,8 +48,8 @@ class Node:
 
     #I have no plans to learn how to properly implement comparables in python anytime soon
     def compareTo(self, obj):
-        if(self.x > obj.x): return -1
-        if(self.x < obj.x): return 1
+        if(this.x > obj.x): return -1
+        if(this.x < obj.x): return 1
         else: return 0
 
     #NVM im gonna try
